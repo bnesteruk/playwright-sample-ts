@@ -1,0 +1,17 @@
+{
+    "admin": {
+        "role": "administrator",
+        "userName": "test_admin",
+        "password": "QALO$M%58"
+    },
+    "internalUser": {
+        "role": "internalUser",
+        "userName": "test_engineer",
+        "password": "#$%FGH*()OI"
+    },
+    "guest": {
+        "role": "guest",
+        "userName": "test_guest",
+        "pin": "GFD$%^NVio"
+    }
+}

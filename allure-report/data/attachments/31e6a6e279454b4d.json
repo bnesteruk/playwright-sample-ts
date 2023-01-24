@@ -1,0 +1,28 @@
+{
+  "id": "GU_T.C.E_1_11-42-43",
+  "dateList": [
+    {
+      "value": "7/14/2022, 2:04 PM",
+      "correction": {
+        "plusMinutes": 45
+      }
+    },
+    {
+      "value": "3/03/2022, 10:14 AM",
+      "correction": {
+        "plusMinutes": -30
+      }
+    },
+    {
+      "value": "8/23/2022, 11:53 PM",
+      "correction": {
+        "plusMinutes": -15,
+        "plusHours": -5
+      }
+    }
+  ],
+  "someField": {
+    "fieldName_1": "Keep here as many test parameters as needed, any object structure"
+  },
+  "retry": 0
+}
