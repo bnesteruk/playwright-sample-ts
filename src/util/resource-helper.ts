@@ -20,11 +20,17 @@ export class ResourceHelper {
     }
 
     static async getSpecData(specInfo: TestInfo) {
-        let fileText = fs.readFileSync(path.resolve(`${ResourceHelper.RESOURCE_FOLDER}/test-data/${specInfo.titlePath[0].replace('ts', 'json')}`), 'utf8')
-        if (!fileText) {
-            console.error(`Failed to read data-file for: ${specInfo.titlePath[0]}`)
+        let dataSetPrefix = process.env.UI_TESTS_DATASET_NAME
+        dataSetPrefix = dataSetPrefix ? `${dataSetPrefix}_` : ''
+        const dataFileName = `${dataSetPrefix}${path.basename(specInfo.file).replace('ts', 'json')}`
+        try {
+            const dataFilePath = path.resolve(path.dirname(specInfo.file), dataFileName)
+            const dataFileText = fs.readFileSync(dataFilePath, 'utf8')
+            return JSON.parse(dataFileText)
+        } catch (ex) {
+            console.error(`Failed to read data-file '${dataFileName}' for: ${specInfo.titlePath[0]}`)
+            throw ex
         }
-        return JSON.parse(fileText)
     }
 
     static async unZip(filePath) {

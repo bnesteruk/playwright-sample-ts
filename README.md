@@ -26,10 +26,6 @@ Install dependencies:
 ```
 npm install
 ```
-Install Playwright and browsers:
-```
-npx playwright install
-```
 
 ## Test configuration
 
@@ -38,11 +34,18 @@ Additional environment variables can be defined in the `.env` file.
 All test suite settings are set in the `playwright.config.ts` config file.
 
 ### Parameterization 
-Test input data and expected values are kept separately in the `.json` data files, and thus can be replaced based on an environment. 
-The path to the data file should reflect the path to the spec itself. e.g.:
+Test input data and expected values are kept separately in the `.json` data files, and thus can be replaced based on an environment.
+Put the test data file next to the spec file:
 
-* Test parameters for the spec `src\spec\example\calendar.example.spec.ts` should be locatet at: `resource\test-data\example\calendar.example.spec.json`.
-* Test name should match the object field name in the `.json` section name.
+*  Spec: `spec\example\calendar.example.spec.ts`
+*  Data: `spec\example\calendar.example.spec.json`.
+
+If you need several environment-specific data sets, add the appropriate prefix to the data file.
+The current environment can set using the `UI_TESTS_DATASET_NAME` environment variable:
+
+*  Environment: `UI_TESTS_DATASET_NAME='stage'`
+*  Dev-env data: `dev_calendar.example.spec.json`
+*  Stage-env data: `stage_calendar.example.spec.json` - this one is passed to the test
 
 **Example**: 
 ```
