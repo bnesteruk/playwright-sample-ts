@@ -3,8 +3,13 @@ import moment from 'moment';
 import { ResourceHelper } from '../util/resource-helper';
 import { DateTime, FixtureOptions } from './test-data-types'
 
+export type TestData = {
+    maxDiffPixels: typeof MaxDiffPixels;
+    [key: string]: any;
+  };
+
 type DataFixtures = {
-    testData
+    testData: TestData
 }
 
 type WorkerScopeDataFixtures = {
@@ -63,8 +68,17 @@ export const test = base.extend<DataFixtures & FixtureOptions, WorkerScopeDataFi
         testData = processSpecTestIds(testData, testData.id, specId)
         testData.retry = testInfo.retry
         await testInfo.attach('Test input data', { body: JSON.stringify(testData, null, 2), contentType: 'application/json' });
+        testData.maxDiffPixels = MaxDiffPixels;
+
         await use(testData)
     },
 });
+
+export const MaxDiffPixels = {
+    PLACEMENT_AREA_DATUM_POSITION: 80,
+    PLACEMENT_AREA_MEMBER_LABEL: 250,
+  
+    TABLE_VIEW: 150
+  };
 
 export { expect } from '@playwright/test';

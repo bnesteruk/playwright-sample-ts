@@ -1,0 +1,7 @@
+{
+    "A user should be able to move a geometry": {
+        "id": "T.C.E_2",
+        "movementValue": -750,
+        "screenshot": "T.C.E_2_left_shifting.png"
+    }
+}

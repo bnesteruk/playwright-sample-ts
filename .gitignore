@@ -2,7 +2,6 @@ node_modules/
 allure-results/
 allure-report/
 playwright-report/
-*spec.ts-snapshots
 build/
 dist/
 /.idea
