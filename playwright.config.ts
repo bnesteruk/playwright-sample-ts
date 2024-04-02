@@ -35,8 +35,10 @@ const config: PlaywrightTestConfig<FixtureOptions> = {
     ['line'],
     ['json', { outputFile: './build/test-results/results.json' }],
     ['./src/util/test-start-stop-reporter.ts'],
-    ['allure-playwright']
+    ['allure-playwright'],
+    ['html', { open: 'on-failure' }]
   ],
+
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

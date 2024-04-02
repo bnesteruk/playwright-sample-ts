@@ -15,7 +15,8 @@
     "copyInputfiles": "copyfiles resource/input-files/* build/test-artifacts -f",
     "test": "npm run clean && npm run copyInputfiles && playwright test",
     "testDebug": "npm run clean && npm run copyInputfiles && set PWDEBUG=console && npm run test",
-    "allure": "npx allure generate ./allure-results --clean && npx allure open ./allure-report"
+    "allure": "npx allure generate ./allure-results --clean && npx allure open ./allure-report",
+    "report": "npx playwright show-report"
   },
   "dependencies": {
     "@nuxtjs/vuetify": "^1.12.3",

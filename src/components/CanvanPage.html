@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Roof Truss</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 100px;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        canvas {
+            display: block;
+            margin: auto;
+            background-color: white;
+            border: 2px solid black;
+            position: relative;
+        }
+        #positionLabel {
+            position: absolute;
+            top: 130px;
+            left: 130px;
+            font-size: 16px;
+            color: #000000;
+            pointer-events: none; /* Ensure label doesn't interfere with canvas interaction */
+        }
+    </style>
+    
+</head>
+<body>
+    <canvas id="trussCanvas"></canvas>
+    <span id="positionLabel">Top-Left Position: </span>
+
+    <script>
+        var canvas = document.getElementById("trussCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // Set canvas size to fit window
+        canvas.width = window.innerWidth - 200; // 100px padding on each side
+        canvas.height = window.innerHeight - 200; // 100px padding on top and bottom
+
+        var boardCount = 8; // Increase board count
+        var boardWidth = (canvas.width - 100) / (boardCount - 1);
+        var trussPosition = canvas.width / 2; // Initial position in the center of the canvas
+        var isDragging = false;
+        var dragStartX;
+        var positionLabel = document.getElementById("positionLabel");
+
+        canvas.addEventListener("mousedown", function(event) {
+            isDragging = true;
+            dragStartX = event.clientX - canvas.getBoundingClientRect().left;
+        });
+
+        canvas.addEventListener("mousemove", function(event) {
+            if (isDragging) {
+                var dragX = event.clientX - canvas.getBoundingClientRect().left;
+                var offsetX = dragX - dragStartX;
+                trussPosition += offsetX;
+                dragStartX = dragX;
+                drawTruss();
+            }
+        });
+
+        canvas.addEventListener("mouseup", function() {
+            isDragging = false;
+        });
+
+        function drawTruss() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Draw top and bottom boards
+            for (var i = 0; i < boardCount; i++) {
+                var x = trussPosition + i * boardWidth;
+                var yTop = 100;
+                var yBottom = 300;
+
+                // Draw top board
+                ctx.beginPath();
+                ctx.moveTo(x, yTop);
+                ctx.lineTo(x, yTop + 50); // Adjust the height of the board
+                ctx.lineWidth = 20;
+                ctx.strokeStyle = "#8B4513"; // SaddleBrown color for wood
+                ctx.stroke();
+
+                // Draw bottom board
+                ctx.beginPath();
+                ctx.moveTo(x, yBottom);
+                ctx.lineTo(x, yBottom - 50); // Adjust the height of the board
+                ctx.lineWidth = 20;
+                ctx.strokeStyle = "#8B4513"; // SaddleBrown color for wood
+                ctx.stroke();
+
+                // Add random text label
+                var labelText = "Board " + (i + 1);
+                ctx.font = "14px Arial";
+                ctx.fillStyle = "#000000"; // Black color for text
+                ctx.fillText(labelText, x - 20, yBottom + 20);
+            }
+
+            // Draw web boards
+            for (var i = 0; i < boardCount - 1; i++) {
+                var x1 = trussPosition + i * boardWidth;
+                var x2 = trussPosition + (i + 1) * boardWidth;
+                var y = 200;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y);
+                ctx.lineTo(x2, y);
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = "#8B4513"; // SaddleBrown color for wood
+                ctx.stroke();
+            }
+
+            // Update position label
+            positionLabel.textContent = "Top-Left Position: " + trussPosition;
+        }
+
+        drawTruss(); // Initial draw
+    </script>
+</body>
+</html>
