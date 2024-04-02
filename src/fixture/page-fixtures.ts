@@ -9,7 +9,7 @@ type Pages = {
 
 export const test = base.extend<Pages>({
     page: async ({ baseURL, page }, use) => {
-    //    await page.goto(baseURL);
+        await page.goto(baseURL);
         await use(page);
     },
 
